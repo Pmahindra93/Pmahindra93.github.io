@@ -149,8 +149,8 @@
             <p class="signature es">Feliz Aniversario, mi amor.</p>
 
             <div class="poem">
-                <h3 class="en">Fifteenth Months of Love</h3>
-                <h3 class="es">Trece meses de amor</h3>
+                <h3 class="en" id="monthsTitle"></h3>
+                <h3 class="es" id="monthsTitleEs"></h3>
 
                 <p class="en">In just a year, a world has changed,<br>
                 Our hearts entwined, our lives rearranged.</p>
@@ -211,6 +211,24 @@
     </div>
 
     <script>
+        function calculateMonths() {
+            const startDate = new Date('2023-08-05');
+            const currentDate = new Date();
+
+            let months = (currentDate.getFullYear() - startDate.getFullYear()) * 12;
+            months -= startDate.getMonth();
+            months += currentDate.getMonth();
+
+            // Adjust for day of month
+            if (currentDate.getDate() < startDate.getDate()) {
+                months--;
+            }
+
+            // Update the titles
+            document.getElementById('monthsTitle').textContent = `${months} Months of Love`;
+            document.getElementById('monthsTitleEs').textContent = `${months} meses de amor`;
+        }
+
         function toggleLanguage() {
             const enElements = document.querySelectorAll('.en');
             const esElements = document.querySelectorAll('.es');
@@ -219,8 +237,9 @@
             esElements.forEach(el => el.style.display = el.style.display === 'none' ? 'block' : 'none');
         }
 
-        // Initially hide Spanish content
+        // Initially hide Spanish content and calculate months
         document.querySelectorAll('.es').forEach(el => el.style.display = 'none');
+        calculateMonths();
     </script>
 </body>
 </html>
